@@ -4,20 +4,24 @@ import CalcView from '@/views/CalcView.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
+    alias: '/',
     component: HomeView
   },
   {
     path: '/calc',
     name: 'calc',
     component: CalcView
-  }
+  },
+  { path: '/:notFound(.*)', redirect: '/home' }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'active'
 })
 
 export default router
