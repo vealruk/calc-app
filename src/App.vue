@@ -1,11 +1,73 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/calc">Start Calculate!</router-link>
-  </nav>
-  <router-view />
+  <div class="container">
+    <the-navigate />
+
+    <router-view />
+  </div>
 </template>
 
+<script>
+import TheNavigate from '@/components/TheNavigate'
+
+export default {
+  data () {
+    return {
+      aboutList: [
+        { id: '1', text: 'Convenience: Online calculators are available anytime and anywhere there is internet access. You can easily access the calculator using your computer, smartphone, or tablet.' },
+        { id: '2', text: 'Variety of functions: Online calculators offer many functions that allow you to perform different types of calculations - from simple arithmetic operations to complex mathematical formulas and statistical calculations.' },
+        { id: '3', text: 'Time-saving: Using online calculators can significantly save time, especially if you need to quickly perform complex calculations.' },
+        { id: '4', text: 'Free of charge: Most online calculators are provided for free, making them accessible to all users.' }
+      ]
+    }
+  },
+
+  provide () {
+    return {
+      aboutList: this.aboutList
+    }
+  },
+  components: { TheNavigate }
+}
+
+</script>
+
 <style lang="scss">
+  html {
+    font-size: 20px;
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 100%;
+    overflow-x: hidden;
+    font-size: 1rem;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(to right, #42275a, #734b6d);
+    background: linear-gradient(to right, #42275a, #734b6d);
+    background-repeat: no-repeat;
+    color: #fff;
+  }
+
+  #app {
+    width: 100vw;
+    min-height: 100vh;
+    padding-bottom: 30px;
+  }
+
+  .container {
+    max-width: 600px;
+    padding: 0 10px;
+    margin: 0 auto;
+
+    @media (min-width: 768px) {
+      padding: 0 30px;
+    }
+  }
 
 </style>
