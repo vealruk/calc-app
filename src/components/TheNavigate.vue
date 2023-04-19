@@ -27,7 +27,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 0 30px;
+    padding: 15px 0;
+
+    @media (min-width: 768px) {
+      padding: 10px 0 30px;
+    }
 
     img {
       border-radius: 50%;
