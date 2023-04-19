@@ -17,13 +17,35 @@ export default {
         { id: '2', text: 'Variety of functions: Online calculators offer many functions that allow you to perform different types of calculations - from simple arithmetic operations to complex mathematical formulas and statistical calculations.' },
         { id: '3', text: 'Time-saving: Using online calculators can significantly save time, especially if you need to quickly perform complex calculations.' },
         { id: '4', text: 'Free of charge: Most online calculators are provided for free, making them accessible to all users.' }
+      ],
+      calculateButtons: [
+        { id: '1', text: 'C' },
+        { id: '2', text: '±' },
+        { id: '3', text: '%' },
+        { id: '4', text: '÷' },
+        { id: '5', text: '7' },
+        { id: '6', text: '8' },
+        { id: '7', text: '9' },
+        { id: '8', text: '×' },
+        { id: '9', text: '4' },
+        { id: '10', text: '5' },
+        { id: '11', text: '6' },
+        { id: '12', text: '−' },
+        { id: '13', text: '1' },
+        { id: '14', text: '2' },
+        { id: '15', text: '3' },
+        { id: '16', text: '+' },
+        { id: '17', text: '0' },
+        { id: '18', text: '←' },
+        { id: '19', text: '=' }
       ]
     }
   },
 
   provide () {
     return {
-      aboutList: this.aboutList
+      aboutList: this.aboutList,
+      calculateButtons: this.calculateButtons
     }
   },
   components: { TheNavigate }

@@ -3,25 +3,7 @@
     <calc-screen v-model:buffer="buffer" />
 
     <div class="calc__grid">
-      <calc-button text="C" type="btn" @handler="clickBtn" />
-      <calc-button text="&#177;" type="btn" @handler="clickBtn" />
-      <calc-button text="%" type="btn" @handler="clickBtn" />
-      <calc-button text="÷" type="btn" @handler="clickBtn" />
-      <calc-button text="7" type="val" @handler="clickBtn" />
-      <calc-button text="8" type="val" @handler="clickBtn" />
-      <calc-button text="9" type="val" @handler="clickBtn" />
-      <calc-button text="×" type="btn" @handler="clickBtn" />
-      <calc-button text="4" type="val" @handler="clickBtn" />
-      <calc-button text="5" type="val" @handler="clickBtn" />
-      <calc-button text="6" type="val" @handler="clickBtn" />
-      <calc-button text="−" type="btn" @handler="clickBtn" />
-      <calc-button text="1" type="val" @handler="clickBtn" />
-      <calc-button text="2" type="val" @handler="clickBtn" />
-      <calc-button text="3" type="val" @handler="clickBtn" />
-      <calc-button text="+" type="btn" @handler="clickBtn" />
-      <calc-button text="0" type="val" @handler="clickBtn" />
-      <calc-button text="←" type="val" @handler="clickBtn" />
-      <calc-button text="=" type="btn" @handler="clickBtn" />
+      <calc-button v-for="btn in calculateButtons" :text="btn.text" :key="btn.id" @handler="clickBtn" />
     </div>
   </div>
 </template>
@@ -38,11 +20,10 @@ export default {
       prevOperator: null
     }
   },
+  inject: ['calculateButtons'],
   methods: {
     clickBtn (event) {
       const $targetData = event.target.dataset
-      console.log('buffer', this.buffer)
-      console.log('Value', this.value)
 
       if (isNaN($targetData.value)) {
         this.handleSymbol($targetData.value)
