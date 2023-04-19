@@ -1,10 +1,10 @@
 <template>
-  <input type="text" disabled :value="value">
+  <input type="text" disabled :value="buffer">
 </template>
 
 <script>
 export default {
-  props: ['value']
+  props: ['buffer']
 }
 </script>
 

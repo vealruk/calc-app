@@ -1,99 +1,99 @@
 <template>
   <div class="calc">
-    <app-screen v-model:value="value"/>
+    <calc-screen v-model:buffer="buffer"/>
 
     <div class="calc__grid">
-      <app-button
-        text="С"
+      <calc-button
+        text="C"
         type="btn"
-        @handler="clickBtn($event)"
+        @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="&#177;"
         type="btn"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="%"
         type="btn"
         @handler="clickBtn"
       />
-      <app-button
-        text="&#247;"
+      <calc-button
+        text="÷"
         type="btn"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="7"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="8"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="9"
+        type="val"
+        @handler="clickBtn"
+      />
+      <calc-button
+        text="×"
         type="btn"
         @handler="clickBtn"
       />
-      <app-button
-        text="&#215;"
-        type="btn"
-        @handler="clickBtn"
-      />
-      <app-button
+      <calc-button
         text="4"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="5"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="6"
+        type="val"
+        @handler="clickBtn"
+      />
+      <calc-button
+        text="−"
         type="btn"
         @handler="clickBtn"
       />
-      <app-button
-        text="&#8722;"
-        type="btn"
-        @handler="clickBtn"
-      />
-      <app-button
+      <calc-button
         text="1"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="2"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="3"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="+"
         type="btn"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="0"
-        type="btn"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
-        text="."
-        type="btn"
+      <calc-button
+        text="←"
+        type="val"
         @handler="clickBtn"
       />
-      <app-button
+      <calc-button
         text="="
         type="btn"
         @handler="clickBtn"
@@ -103,22 +103,110 @@
 </template>
 
 <script>
-import AppButton from '@/components/AppButton'
-import AppScreen from '@/components/AppScreen'
+import CalcButton from '@/components/CalcButton'
+import CalcScreen from '@/components/CalcScreen'
 
 export default {
   data () {
     return {
-      value: 0
+      value: 0,
+      buffer: '0',
+      prevOperator: null
     }
   },
   methods: {
     clickBtn (event) {
-      console.log(event)
-      this.value = 'SMASHEEED'
+      const $targetData = event.target.dataset
+      console.log('buffer', this.buffer)
+      console.log('Value', this.value)
+
+      if (isNaN($targetData.value)) {
+        this.handleSymbol($targetData.value)
+      } else {
+        this.handleNumber($targetData.value)
+      }
+    },
+    handleSymbol (symbol) {
+      let index
+      switch (symbol) {
+        case 'C':
+          this.value = 0
+          this.buffer = '0'
+          break
+        case '±':
+          index = String(this.buffer).indexOf('-')
+          if (index === -1) {
+            this.buffer = '-' + this.buffer
+          } else {
+            this.buffer = String(this.buffer).replace((/-\s*/), '')
+          }
+          break
+        case '←':
+          if (this.buffer.length === 1) {
+            this.buffer = '0'
+          } else {
+            this.buffer = String(this.buffer).slice(0, this.buffer.length - 1)
+          }
+          break
+        case '=':
+          if (this.prevOperator === null) {
+            return null
+          }
+          this.flushOperation(parseInt(this.buffer))
+
+          this.buffer = this.value
+          this.value = 0
+          break
+        case '%':
+          if (this.buffer === '0') {
+            return null
+          } else {
+            this.buffer = this.buffer / 100
+          }
+          break
+        case '÷':
+        case '×':
+        case '−':
+        case '+':
+          this.handleMath(symbol)
+          break
+      }
+    },
+    handleMath (symbol) {
+      if (this.buffer === '0') {
+        return null
+      }
+      const intBuffer = parseInt(this.buffer)
+
+      if (this.value === 0) {
+        this.value = intBuffer
+      } else {
+        this.flushOperation(intBuffer)
+      }
+
+      this.prevOperator = symbol
+      this.buffer = '0'
+    },
+    flushOperation (intBuffer) {
+      if (this.prevOperator === '+') {
+        this.value += intBuffer
+      } else if (this.prevOperator === '−') {
+        this.value -= intBuffer
+      } else if (this.prevOperator === '÷') {
+        this.value /= intBuffer
+      } else if (this.prevOperator === '×') {
+        this.value *= intBuffer
+      }
+    },
+    handleNumber (val) {
+      if (this.buffer === '0') {
+        this.buffer = val
+      } else {
+        this.buffer += val
+      }
     }
   },
-  components: { AppButton, AppScreen }
+  components: { CalcButton, CalcScreen }
 }
 </script>
 
@@ -135,9 +223,10 @@ export default {
 
     &__grid {
       display: grid;
-      grid-template-columns: repeat(4, auto);
-      grid-template-rows: repeat(5, auto);
-      justify-items: center;
+      grid-template-columns: repeat(4, 50px);
+      grid-template-rows: repeat(5, 50px);
+      justify-content: center;
+      column-gap: 15px;
       row-gap: 10px;
       padding-bottom: 15px;
     }
