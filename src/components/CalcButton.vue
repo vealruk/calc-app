@@ -2,7 +2,6 @@
   <button
     class="btn"
     @click="$emit('handler', $event)"
-    :data-type="type"
     :data-value="text"
   >
     {{ text }}
@@ -12,7 +11,7 @@
 <script>
 export default {
   emits: ['handler'],
-  props: ['type', 'text']
+  props: ['text']
 }
 </script>
 
@@ -39,6 +38,9 @@ export default {
       &:hover {
         background-color: rgba(192, 192, 192, 0.4);
       }
+    }
+    &:active {
+        background-color: rgba(192, 192, 192, 0.4);
     }
   }
 </style>
