@@ -82,8 +82,8 @@ export default {
           this.value = 0
           break
         case '%':
-          if (this.buffer === '0') {
-            return null
+          if (this.buffer === '0' || this.buffer === '-0') {
+            this.buffer = '0'
           } else {
             this.buffer = this.buffer / 100
           }
@@ -125,6 +125,8 @@ export default {
     handleNumber (val) {
       if (this.buffer === '0') {
         this.buffer = val
+      } else if (this.buffer === '-0') {
+        this.buffer = -val
       } else {
         this.buffer += val
       }
