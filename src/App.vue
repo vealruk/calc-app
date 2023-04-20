@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @dblclick.prevent>
     <the-navigate />
 
     <router-view />
@@ -19,7 +19,7 @@ export default {
         { id: '4', text: 'Free of charge: Most online calculators are provided for free, making them accessible to all users.' }
       ],
       calculateButtons: [
-        { id: '1', text: 'C' },
+        { id: '1', text: 'c' },
         { id: '2', text: '±' },
         { id: '3', text: '%' },
         { id: '4', text: '÷' },

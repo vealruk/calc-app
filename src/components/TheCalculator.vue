@@ -34,7 +34,7 @@ export default {
     handleSymbol (symbol) {
       let index
       switch (symbol) {
-        case 'C':
+        case 'c':
           this.value = 0
           this.buffer = '0'
           break

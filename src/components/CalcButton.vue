@@ -26,6 +26,7 @@ export default {
     color: #fff;
     cursor: pointer;
     transition: .1s linear;
+    text-transform: uppercase;
 
     &[data-value="0"] {
       width: 115px;
