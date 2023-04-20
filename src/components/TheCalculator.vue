@@ -25,12 +25,12 @@ export default {
   inject: ['calculateButtons'],
   methods: {
     clickBtn (event) {
-      const $targetData = event.target.dataset
+      const $targetDataValue = event.target.dataset.value
 
-      if (isNaN($targetData.value)) {
-        this.handleSymbol($targetData.value)
+      if (isNaN($targetDataValue)) {
+        this.handleSymbol($targetDataValue)
       } else {
-        this.handleNumber($targetData.value)
+        this.handleNumber($targetDataValue)
       }
     },
     handleSymbol (symbol) {
@@ -65,7 +65,7 @@ export default {
           this.value = 0
           break
         case '%':
-          if (this.buffer === '0' || this.buffer === '-0') {
+          if (this.isFullBuffer('0') || this.isFullBuffer('-0')) {
             this.buffer = '0'
           } else {
             this.buffer = this.buffer / 100
@@ -80,7 +80,7 @@ export default {
       }
     },
     handleMath (symbol) {
-      if (this.buffer === '0') {
+      if (this.isFullBuffer('0')) {
         return null
       }
       const intBuffer = parseInt(this.buffer)
@@ -106,13 +106,16 @@ export default {
       }
     },
     handleNumber (val) {
-      if (this.buffer === '0') {
+      if (this.isFullBuffer('0')) {
         this.buffer = val
-      } else if (this.buffer === '-0') {
+      } else if (this.isFullBuffer('-0')) {
         this.buffer = -val
       } else {
         this.buffer += val
       }
+    },
+    isFullBuffer (str) {
+      return this.buffer === str
     }
   },
   components: { CalcScreen, CalcButton }
