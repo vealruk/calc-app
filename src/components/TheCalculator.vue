@@ -3,7 +3,9 @@
     <calc-screen v-model:buffer="buffer" />
 
     <div class="calc__grid">
-      <calc-button v-for="btn in calculateButtons" :text="btn.text" :key="btn.id" @handler="clickBtn" />
+      <calc-button v-for="btn in calculateButtons" :text="btn.text" :key="btn.id" @handler="clickBtn">
+         {{ btn.text }}
+      </calc-button>
     </div>
   </div>
 </template>

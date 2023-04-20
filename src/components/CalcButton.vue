@@ -4,7 +4,7 @@
     @click="$emit('handler', $event)"
     :data-value="text"
   >
-    {{ text }}
+    <slot />
   </button>
 </template>
 

@@ -2,7 +2,12 @@
   <div class="container" @dblclick.prevent>
     <the-navigate />
 
-    <router-view />
+    <!-- Таким образом можно сохранить стейт в роутере -->
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" :key="$route.fullPath"/>
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
