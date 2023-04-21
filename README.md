@@ -2,7 +2,7 @@
 
 A simple calculator written in Vue 3 using vue-router without any third-party libraries. The calculator allows you to perform basic mathematical operations such as addition, subtraction, multiplication, and division.
 
-##Features
+## Features
 • Uses Vue 3 and vue-router
 • No dependencies on third-party libraries
 • Supports basic mathematical operations
@@ -28,7 +28,7 @@ npm run build
 npm run lint
 ```
 
-##Usage
+## Usage
 
 1. Open your browser and navigate to the calculator page.
 2. Enter the numbers you want to perform the operation on.
