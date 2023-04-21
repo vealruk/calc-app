@@ -20,16 +20,8 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+## Demo
+You can check out a live demo of the project at https://calc-app-vue.web.app/home.
 
 ## Usage
 
