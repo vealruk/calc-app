@@ -1,24 +1,26 @@
 <template>
-  <input type="text" disabled :value="buffer">
+  <input type="text" disabled :value="value">
 </template>
 
 <script>
 export default {
-  props: ['buffer']
+  props: ['value']
 }
 </script>
 
-<style>
+<style lang="scss">
  input {
   text-align: right;
-  padding: 15px 10px 5px;
+  padding: 0 10px;
   height: 75px;
   color: #fff;
-  font-weight: 500;
-  font-size: 1.8rem;
+  font-weight: 600;
+  font-size: 3rem;
   letter-spacing: .05rem;
-  background-color: #80FFCD;
-  border: 15px solid #FB79A7;
-  margin-bottom: 15px;
+  margin-bottom: 60px;
+
+  &:disabled {
+    background-color: transparent;
+  }
  }
 </style>

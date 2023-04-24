@@ -47,7 +47,7 @@ export default {
       p {
         font-weight: 600;
         font-size: .8rem;
-        color: #42275a;
+        color: rgba(32, 54, 64, 0.75);
       }
     }
 

@@ -1,10 +1,10 @@
 <template>
   <div class="calc">
-    <calc-screen v-model:buffer="buffer" />
+    <calc-screen v-model:value="buffer" />
 
     <div class="calc__grid">
-      <calc-button v-for="btn in calculateButtons" :text="btn.text" :key="btn.id" @handler="clickBtn">
-         {{ btn.text }}
+      <calc-button v-for="btn in calculateButtons" :text="btn.text" :key="btn.id" :type="btn.type" @handler="clickBtn">
+        {{ btn.text }}
       </calc-button>
     </div>
   </div>
@@ -13,7 +13,6 @@
 <script>
 import CalcScreen from './CalcScreen.vue'
 import CalcButton from './CalcButton.vue'
-
 export default {
   data () {
     return {
@@ -26,7 +25,6 @@ export default {
   methods: {
     clickBtn (event) {
       const $targetDataValue = event.target.dataset.value
-
       if (isNaN($targetDataValue)) {
         this.handleSymbol($targetDataValue)
       } else {
@@ -45,7 +43,7 @@ export default {
           if (index === -1) {
             this.buffer = '-' + this.buffer
           } else {
-            this.buffer = String(this.buffer).replace((/-\s*/), '')
+            this.buffer = String(this.buffer).replace('-', '')
           }
           break
         case '←':
@@ -60,7 +58,6 @@ export default {
             return null
           }
           this.flushOperation(parseInt(this.buffer))
-
           this.buffer = this.value
           this.value = 0
           break
@@ -84,13 +81,11 @@ export default {
         return null
       }
       const intBuffer = parseInt(this.buffer)
-
       if (this.value === 0) {
         this.value = intBuffer
       } else {
         this.flushOperation(intBuffer)
       }
-
       this.prevOperator = symbol
       this.buffer = '0'
     },
@@ -118,29 +113,37 @@ export default {
       return this.buffer === str
     }
   },
-  components: { CalcScreen, CalcButton }
+  components: {
+    CalcScreen,
+    CalcButton
+  }
 }
+
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .calc {
     margin: 0 auto;
-    max-width: 300px;
-    background-color: #FFA998;
-    border: 10px solid #A68CFF;
+    padding-top: 100px;
+    padding-bottom: 48px;
+    max-width: 375px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    border-radius: 5px;
+    background: radial-gradient(58.27% 29.13% at 100% 100%, rgba(54, 195, 255, 0.5) 0%, rgba(54, 195, 255, 0) 100%)
+      , radial-gradient(53.87% 26.93% at 22.4% -4.2%, rgba(54, 195, 255, 0.75) 0%, rgba(54, 195, 255, 0.1875) 60.09%, rgba(54, 195, 255, 0) 100%)
+      , rgba(13, 31, 38, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 40px;
 
     &__grid {
       display: grid;
-      grid-template-columns: repeat(4, 50px);
-      grid-template-rows: repeat(5, 50px);
+      grid-template-columns: repeat(4, 69px);
+      grid-template-rows: repeat(5, 60px);
       justify-content: center;
-      column-gap: 15px;
-      row-gap: 10px;
-      padding-bottom: 15px;
+      column-gap: 20px;
+      row-gap: 12px;
     }
   }
+
 </style>

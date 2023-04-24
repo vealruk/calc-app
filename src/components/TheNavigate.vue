@@ -1,7 +1,9 @@
 <template>
   <nav class="nav">
     <router-link custom to="/home" v-slot="{ navigate }">
-      <img src="@/assets/img/calc.jpg" alt="calc" @click="navigate">
+      <button @click="navigate">
+        <img src="@/assets/img/calculator.png" alt="calc">
+      </button>
     </router-link>
     <div class="nav__link">
       <router-link custom to="/home" v-slot="{ navigate, href }">
@@ -33,12 +35,20 @@ export default {
       padding: 10px 0 30px;
     }
 
-    img {
+    button {
       border-radius: 50%;
-      max-width: 60px;
+      border: 5px solid #fff;
       margin-bottom: 10px;
       transition: transform .1s linear;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
       cursor: pointer;
+
+      img {
+        max-width: 60px;
+      }
 
       @media (pointer: fine) {
         &:hover {
@@ -55,12 +65,12 @@ export default {
 
         &.active {
           text-decoration: underline;
-          color: peachpuff;
+          color: rgba(32, 54, 64, 0.75);
         }
 
         @media (pointer: fine) {
           &:hover {
-            color: peachpuff;
+            color: rgba(32, 54, 64, 0.75);
           }
         }
       }
