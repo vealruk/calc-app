@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" @click="$emit('handler', $event)" :data-value="text" :data-type="type">
+  <button :class="['btn', className]" @click="$emit('handler', $event.target)" :data-key="text">
     <slot />
   </button>
 </template>
@@ -7,9 +7,16 @@
 <script>
 export default {
   emits: ['handler'],
-  props: ['text', 'type']
+  props: {
+    text: {
+      type: String,
+      required: true
+    },
+    className: {
+      class: String
+    }
+  }
 }
-
 </script>
 
 <style lang="scss">
@@ -24,13 +31,7 @@ export default {
     text-transform: uppercase;
     border: 1px solid rgba(255, 255, 255, 0.25);
 
-    &[data-value="0"] {
-      width: 150px;
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
-
-    &[data-type="func"] {
+    &.func {
       background: rgba(0, 70, 102, 0.75);
 
       @media (pointer: fine) {

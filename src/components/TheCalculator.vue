@@ -3,7 +3,7 @@
     <calc-screen v-model:value="buffer" />
 
     <div class="calc__grid">
-      <calc-button v-for="btn in calculateButtons" :text="btn.text" :key="btn.id" :type="btn.type" @handler="clickBtn">
+      <calc-button v-for="btn in buttons" :className="btn.className" :text="btn.text" :key="btn.text" @handler="clickBtn">
         {{ btn.text }}
       </calc-button>
     </div>
@@ -13,106 +13,111 @@
 <script>
 import CalcScreen from './CalcScreen.vue'
 import CalcButton from './CalcButton.vue'
+import useCalculate from '../use/calculate'
+
 export default {
-  data () {
-    return {
-      value: 0,
-      buffer: '0',
-      prevOperator: null
-    }
+  setup () {
+    return { ...useCalculate() }
   },
-  inject: ['calculateButtons'],
-  methods: {
-    clickBtn (event) {
-      const $targetDataValue = event.target.dataset.value
-      if (isNaN($targetDataValue)) {
-        this.handleSymbol($targetDataValue)
-      } else {
-        this.handleNumber($targetDataValue)
-      }
-    },
-    handleSymbol (symbol) {
-      let index
-      switch (symbol) {
-        case 'c':
-          this.value = 0
-          this.buffer = '0'
-          break
-        case '±':
-          index = String(this.buffer).indexOf('-')
-          if (index === -1) {
-            this.buffer = '-' + this.buffer
-          } else {
-            this.buffer = String(this.buffer).replace('-', '')
-          }
-          break
-        case '←':
-          if (this.buffer.length === 1) {
-            this.buffer = '0'
-          } else {
-            this.buffer = String(this.buffer).slice(0, this.buffer.length - 1)
-          }
-          break
-        case '=':
-          if (this.prevOperator === null) {
-            return null
-          }
-          this.flushOperation(parseInt(this.buffer))
-          this.buffer = this.value
-          this.value = 0
-          break
-        case '%':
-          if (this.isFullBuffer('0') || this.isFullBuffer('-0')) {
-            this.buffer = '0'
-          } else {
-            this.buffer = this.buffer / 100
-          }
-          break
-        case '÷':
-        case '×':
-        case '−':
-        case '+':
-          this.handleMath(symbol)
-          break
-      }
-    },
-    handleMath (symbol) {
-      if (this.isFullBuffer('0')) {
-        return null
-      }
-      const intBuffer = parseInt(this.buffer)
-      if (this.value === 0) {
-        this.value = intBuffer
-      } else {
-        this.flushOperation(intBuffer)
-      }
-      this.prevOperator = symbol
-      this.buffer = '0'
-    },
-    flushOperation (intBuffer) {
-      if (this.prevOperator === '+') {
-        this.value += intBuffer
-      } else if (this.prevOperator === '−') {
-        this.value -= intBuffer
-      } else if (this.prevOperator === '÷') {
-        this.value /= intBuffer
-      } else if (this.prevOperator === '×') {
-        this.value *= intBuffer
-      }
-    },
-    handleNumber (val) {
-      if (this.isFullBuffer('0')) {
-        this.buffer = val
-      } else if (this.isFullBuffer('-0')) {
-        this.buffer = -val
-      } else {
-        this.buffer += val
-      }
-    },
-    isFullBuffer (str) {
-      return this.buffer === str
-    }
-  },
+  // data () {
+  //   return {
+  //     value: 0,
+  //     buffer: '0',
+  //     prevOperator: null
+  //   }
+  // },
+  // inject: ['calculateButtons'],
+  // methods: {
+  //   clickBtn (event) {
+  //     const $targetDataValue = event.target.dataset.value
+  //     if (isNaN($targetDataValue)) {
+  //       this.handleSymbol($targetDataValue)
+  //     } else {
+  //       this.handleNumber($targetDataValue)
+  //     }
+  //   },
+  //   handleSymbol (symbol) {
+  //     let index
+  //     switch (symbol) {
+  //       case 'c':
+  //         this.value = 0
+  //         this.buffer = '0'
+  //         break
+  //       case '±':
+  //         index = String(this.buffer).indexOf('-')
+  //         if (index === -1) {
+  //           this.buffer = '-' + this.buffer
+  //         } else {
+  //           this.buffer = String(this.buffer).replace('-', '')
+  //         }
+  //         break
+  //       case '←':
+  //         if (this.buffer.length === 1) {
+  //           this.buffer = '0'
+  //         } else {
+  //           this.buffer = String(this.buffer).slice(0, this.buffer.length - 1)
+  //         }
+  //         break
+  //       case '=':
+  //         if (this.prevOperator === null) {
+  //           return null
+  //         }
+  //         this.flushOperation(parseInt(this.buffer))
+  //         this.buffer = this.value
+  //         this.value = 0
+  //         break
+  //       case '%':
+  //         if (this.isFullBuffer('0') || this.isFullBuffer('-0')) {
+  //           this.buffer = '0'
+  //         } else {
+  //           this.buffer = this.buffer / 100
+  //         }
+  //         break
+  //       case '÷':
+  //       case '×':
+  //       case '−':
+  //       case '+':
+  //         this.handleMath(symbol)
+  //         break
+  //     }
+  //   },
+  //   handleMath (symbol) {
+  //     if (this.isFullBuffer('0')) {
+  //       return null
+  //     }
+  //     const intBuffer = parseInt(this.buffer)
+  //     if (this.value === 0) {
+  //       this.value = intBuffer
+  //     } else {
+  //       this.flushOperation(intBuffer)
+  //     }
+  //     this.prevOperator = symbol
+  //     this.buffer = '0'
+  //   },
+  //   flushOperation (intBuffer) {
+  //     if (this.prevOperator === '+') {
+  //       this.value += intBuffer
+  //     } else if (this.prevOperator === '−') {
+  //       this.value -= intBuffer
+  //     } else if (this.prevOperator === '÷') {
+  //       this.value /= intBuffer
+  //     } else if (this.prevOperator === '×') {
+  //       this.value *= intBuffer
+  //     }
+  //   },
+  //   handleNumber (val) {
+  //     if (this.isFullBuffer('0')) {
+  //       this.buffer = val
+  //     } else if (this.isFullBuffer('-0')) {
+  //       this.buffer = -val
+  //     } else {
+  //       this.buffer += val
+  //     }
+  //   },
+  //   isFullBuffer (str) {
+  //     return this.buffer === str
+  //   }
+  // },
   components: {
     CalcScreen,
     CalcButton
@@ -124,7 +129,7 @@ export default {
 <style lang="scss" scoped>
   .calc {
     margin: 0 auto;
-    padding-top: 100px;
+    padding-top: 60px;
     padding-bottom: 48px;
     max-width: 375px;
     display: flex;
@@ -138,11 +143,12 @@ export default {
 
     &__grid {
       display: grid;
-      grid-template-columns: repeat(4, 69px);
-      grid-template-rows: repeat(5, 60px);
+      grid-template-columns: repeat(4, minmax(39px, 69px));
+      grid-template-rows: repeat(5, minmax(30px, 60px));
       justify-content: center;
-      column-gap: 20px;
-      row-gap: 12px;
+      column-gap: 15px;
+      row-gap: 10px;
+      padding: 0 10px;
     }
   }
 

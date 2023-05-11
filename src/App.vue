@@ -1,7 +1,7 @@
 <template>
-  <div class="container" @dblclick.prevent>
-    <TheNavigate />
+  <TheNavigate />
 
+  <div className="container" @dblclick.prevent>
     <!-- Таким образом можно сохранить стейт в роутере -->
     <router-view v-slot="{ Component }">
       <keep-alive>
@@ -13,39 +13,42 @@
 
 <script>
 import TheNavigate from '@/components/TheNavigate'
+import { provide, reactive } from 'vue'
 
 export default {
-  provide () {
-    return {
-      buffer: '0',
-      aboutList: [
-        { id: '1', text: 'Convenience: Online calculators are available anytime and anywhere there is internet access. You can easily access the calculator using your computer, smartphone, or tablet.' },
-        { id: '2', text: 'Variety of functions: Online calculators offer many functions that allow you to perform different types of calculations - from simple arithmetic operations to complex mathematical formulas and statistical calculations.' },
-        { id: '3', text: 'Time-saving: Using online calculators can significantly save time, especially if you need to quickly perform complex calculations.' },
-        { id: '4', text: 'Free of charge: Most online calculators are provided for free, making them accessible to all users.' }
-      ],
-      calculateButtons: [
-        { id: '1', text: 'c', type: 'func' },
-        { id: '2', text: '±', type: 'func' },
-        { id: '3', text: '%', type: 'func' },
-        { id: '4', text: '÷', type: 'func' },
-        { id: '5', text: '7' },
-        { id: '6', text: '8' },
-        { id: '7', text: '9' },
-        { id: '8', text: '×', type: 'func' },
-        { id: '9', text: '4' },
-        { id: '10', text: '5' },
-        { id: '11', text: '6' },
-        { id: '12', text: '−', type: 'func' },
-        { id: '13', text: '1' },
-        { id: '14', text: '2' },
-        { id: '15', text: '3' },
-        { id: '16', text: '+', type: 'func' },
-        { id: '17', text: '0' },
-        { id: '18', text: '←' },
-        { id: '19', text: '=', type: 'func' }
-      ]
-    }
+  setup () {
+    const aboutList = reactive([
+      { text: 'Convenience: Online calculators are available anytime and anywhere there is internet access. You can easily access the calculator using your computer, smartphone, or tablet.' },
+      { text: 'Variety of functions: Online calculators offer many functions that allow you to perform different types of calculations - from simple arithmetic operations to complex mathematical formulas and statistical calculations.' },
+      { text: 'Time-saving: Using online calculators can significantly save time, especially if you need to quickly perform complex calculations.' },
+      { text: 'Free of charge: Most online calculators are provided for free, making them accessible to all users.' }
+    ])
+
+    const calculateButtons = reactive([
+      { text: 'c', className: 'func' },
+      { text: '±', className: 'func' },
+      { text: '%', className: 'func' },
+      { text: '÷', className: 'func' },
+      { text: '7' },
+      { text: '8' },
+      { text: '9' },
+      { text: '×', className: 'func' },
+      { text: '4' },
+      { text: '5' },
+      { text: '6' },
+      { text: '−', className: 'func' },
+      { text: '1' },
+      { text: '2' },
+      { text: '3' },
+      { text: '+', className: 'func' },
+      { text: '0' },
+      { text: '.' },
+      { text: '←' },
+      { text: '=', className: 'func' }
+    ])
+
+    provide('buttons', calculateButtons)
+    provide('lists', aboutList)
   },
   components: { TheNavigate }
 }
@@ -87,11 +90,11 @@ export default {
 
   .container {
     max-width: 600px;
-    padding: 0 10px;
+    padding: 110px 10px 0;
     margin: 0 auto;
 
     @media (min-width: 768px) {
-      padding: 0 30px;
+      padding: 110px 30px 0;
     }
   }
 
