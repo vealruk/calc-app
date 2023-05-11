@@ -4,7 +4,7 @@ export default () => {
   const buffer = ref('0')
   const a = ref('')
   const b = ref('')
-  const sing = ref('')
+  const sign = ref('')
   const finish = ref(false)
 
   const buttons = inject('buttons')
@@ -18,7 +18,7 @@ export default () => {
     buffer.value = '0'
     a.value = ''
     b.value = ''
-    sing.value = ''
+    sign.value = ''
     finish.value = false
   }
 
@@ -40,7 +40,7 @@ export default () => {
             buffer.value = buffer.value.slice(0, buffer.value.length - 1)
           }
 
-          if (!sing.value) {
+          if (!sign.value) {
             a.value = buffer.value
             if (isEmpty.value) {
               a.value = ''
@@ -76,7 +76,18 @@ export default () => {
           }
 
           buffer.value += key.value
-          a.value = buffer.value
+
+          if (!sign.value) {
+            a.value = buffer.value
+            if (isEmpty.value) {
+              a.value = ''
+            }
+          } else {
+            b.value = buffer.value
+            if (isEmpty.value) {
+              b.value = ''
+            }
+          }
           break
       }
     }
@@ -84,14 +95,14 @@ export default () => {
 
   const action = (key) => {
     if (actions.includes(key.value)) {
-      sing.value = key.value
-      buffer.value = sing.value
+      sign.value = key.value
+      buffer.value = sign.value
     }
 
     if (key.value === '=') {
       if (b.value === '') b.value = a.value
 
-      switch (sing.value) {
+      switch (sign.value) {
         case '+':
           buffer.value = String(+(a.value) + +(b.value))
           a.value = buffer.value
@@ -121,7 +132,7 @@ export default () => {
     if (digits.includes(key.value)) {
       if (key.value === '0' && buffer.value === '0') {
         return false
-      } else if (b.value === '' && sing.value === '') {
+      } else if (b.value === '' && sign.value === '') {
         a.value += key.value
         buffer.value = a.value
       } else if (a.value !== '' && b.value !== '' && finish.value) {
@@ -129,19 +140,21 @@ export default () => {
         finish.value = false
         buffer.value = b.value
       } else {
-        b.value += key.value
-        buffer.value = b.value
+        if (b.value === '0' && digits.includes(key.value) && key.value !== '.') {
+          b.value = key.value
+          buffer.value = b.value
+        } else {
+          b.value += key.value
+          buffer.value = b.value
+        }
       }
-      // else if (sing.value === '←') {
-      //   a.value += key.value
-      //   buffer.value = a.value
-      // }
-      // Число b не стирается
     }
   }
 
   const clickBtn = (target) => {
     const key = ref(target.dataset.key)
+
+    console.table(['buffer ' + buffer.value, 'a ' + a.value, 'b ' + b.value])
 
     digit(key)
 
