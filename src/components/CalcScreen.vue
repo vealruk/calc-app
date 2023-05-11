@@ -14,7 +14,7 @@ export default {
 
     watch(value, val => {
       const length = val.length
-      fontSize.value = `${Math.min(3, (2 / length) * 14).toFixed(1)}rem`
+      fontSize.value = `${Math.min(3, (2 / length) * 13).toFixed(1)}rem`
     })
 
     return {
