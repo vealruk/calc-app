@@ -12,15 +12,20 @@ export default {
  input {
   text-align: right;
   padding: 0 10px;
-  height: 75px;
+  height: 50px;
   color: #fff;
   font-weight: 600;
   font-size: 3rem;
   letter-spacing: .05rem;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
+
+  &::placeholder {
+      color: #fff;
+  }
 
   &:disabled {
     background-color: transparent;
+    color: #fff !important;
   }
  }
 </style>

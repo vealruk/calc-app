@@ -19,26 +19,27 @@
   </nav>
 </template>
 
-<script>
-export default {
-}
-</script>
-
 <style lang="scss" scoped>
   .nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 10px 15px;
+    color: rgba(32, 54, 64, 0.75);
 
     @media (min-width: 768px) {
-      padding: 10px 0 30px;
+      padding: 10px 30px;
     }
 
     button {
       border-radius: 50%;
       border: 5px solid #fff;
-      margin-bottom: 10px;
+      margin-right: 10px;
       transition: transform .1s linear;
       display: flex;
       justify-content: center;
@@ -61,16 +62,19 @@ export default {
       a {
         text-decoration: none;
         color: inherit;
-        transition: color .1s linear;
+        font-size: .9rem;
+
+        @media (min-width: 330px) {
+          font-size: inherit;
+        }
 
         &.active {
           text-decoration: underline;
-          color: rgba(32, 54, 64, 0.75);
         }
 
         @media (pointer: fine) {
           &:hover {
-            color: rgba(32, 54, 64, 0.75);
+            text-decoration: underline;
           }
         }
       }
