@@ -40,7 +40,9 @@ export default {
 
   &:disabled {
     background-color: transparent;
-    color: #fff !important;
+    opacity: 1;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
   }
  }
 </style>
