@@ -1,6 +1,6 @@
 <template>
   <div class="calc">
-    <calc-screen v-model:value="buffer" />
+    <calc-screen v-model:buffer="buffer" />
 
     <div class="calc__grid">
       <calc-button v-for="btn in buttons" :className="btn.className" :text="btn.text" :key="btn.text" @handler="clickBtn">

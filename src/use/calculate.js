@@ -154,8 +154,6 @@ export default () => {
   const clickBtn = (target) => {
     const key = ref(target.dataset.key)
 
-    console.table(['buffer ' + buffer.value, 'a ' + a.value, 'b ' + b.value])
-
     digit(key)
 
     functional(key)
