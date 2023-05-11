@@ -81,7 +81,6 @@ export default {
   #app {
     width: 100vw;
     min-height: 100vh;
-    padding-bottom: 30px;
     background-image: url('./assets/img/bg.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -90,12 +89,8 @@ export default {
 
   .container {
     max-width: 600px;
-    padding: 110px 10px 0;
+    padding: 110px 10px 20px;
     margin: 0 auto;
-
-    @media (min-width: 768px) {
-      padding: 110px 30px 0;
-    }
   }
 
 </style>

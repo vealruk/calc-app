@@ -46,7 +46,6 @@ export default {
       padding: 10px;
       background-color: #fff;
       border-radius: 10px;
-      margin-bottom: 10px;
     }
 
     &__info {

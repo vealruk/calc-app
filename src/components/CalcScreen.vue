@@ -12,7 +12,7 @@ export default {
  input {
   text-align: right;
   padding: 0 10px;
-  height: 50px;
+  height: 75px;
   color: #fff;
   font-weight: 600;
   font-size: 3rem;
