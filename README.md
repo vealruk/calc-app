@@ -1,6 +1,6 @@
 # Calculator in Vue 3
 
-A simple calculator written in Vue 3 using vue-router without any third-party libraries. The calculator allows you to perform basic mathematical operations such as addition, subtraction, multiplication, and division.
+A simple calculator written in Vue 3 using vue-router & Composition API without any third-party libraries. The calculator allows you to perform basic mathematical operations such as addition, subtraction, multiplication, and division.
 
 ## Features
 • Uses Vue 3 and vue-router
