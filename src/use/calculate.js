@@ -22,7 +22,7 @@ export default () => {
     finish.value = false
   }
 
-  const isEmpty = computed(() => buffer.value === '0' | '-0'
+  const isEmpty = computed(() => buffer.value === '0' || buffer.value === '-0'
   )
 
   const functional = (key) => {
@@ -34,7 +34,7 @@ export default () => {
           clear()
           break
         case '←':
-          if (buffer.value.length === 1 || buffer.value === 'Error' || buffer.value === '0') {
+          if (buffer.value.length === 1 || buffer.value === 'Error' || isEmpty.value) {
             buffer.value = '0'
           } else {
             buffer.value = buffer.value.slice(0, buffer.value.length - 1)
@@ -130,10 +130,14 @@ export default () => {
 
   const digit = (key) => {
     if (digits.includes(key.value)) {
-      if (key.value === '0' && buffer.value === '0') {
+      if (key.value === '0' && isEmpty.value) {
         return false
       } else if (b.value === '' && sign.value === '') {
-        a.value += key.value
+        if (buffer.value === '-0') {
+          a.value = '-' + key.value
+        } else {
+          a.value += key.value
+        }
         buffer.value = a.value
       } else if (a.value !== '' && b.value !== '' && finish.value) {
         b.value = key.value
